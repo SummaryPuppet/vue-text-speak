@@ -11,9 +11,14 @@ let voices = ref([]);
 
 onMounted(() => {
   voices.value = synthesis.getVoices();
+  console.log(synthesis.getVoices());
 });
 
 function speakToText() {
+  if (!voices.value) {
+    voices.value = synthesis.getVoices();
+  }
+
   if (!selectVoice) {
     return alert("Select voice");
   }
@@ -33,6 +38,8 @@ function speakToText() {
   utterThis.voice = voiceSelect;
 
   synthesis.speak(utterThis);
+
+  speakBtnBool.value = !speakBtnBool.value;
 }
 </script>
 
